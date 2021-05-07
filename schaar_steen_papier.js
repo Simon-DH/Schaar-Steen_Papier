@@ -28,7 +28,7 @@ zorg dat case insensiteve ingegeven kan worden */
 function playRound(playerSelection, computerSelection) {
     // voorwaarde toegevoegd om te zien of er geen onzin meegegeven wordt
     if (!mogelijkheden.includes((playerSelection.trim()).toLowerCase())) {
-        return('Stop met me onzin te voeden!!!')
+        return('Stop met me onzin te voeden!!! Onzin kan ik niet uitstaan\nGestraft zul je worden\nJe verliest deze ronde!')
     }
     // als ze gelijk zijn is het een gelijkspel
     else if ((playerSelection.trim()).toLowerCase() === computerSelection) {
@@ -70,12 +70,59 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-let playerSelection = prompt("Schaar, Steen of Papier. Wat is je wapen?");
-let computerSelection = computerPlay();
 
-console.log(computerSelection)
+function game () {
 
-alert(playRound(playerSelection, computerSelection));
+        alert('Een spel van schaar, steen, papier.');
+        alert('Je speelt vijf keer, wie de meeste rondjes wint is de kampioen');
+        alert('Maar geef geen onzin in. Dan verlies je de ronde');
+        alert('Laten we beginnen');
+
+        let humanScore = 0;
+        let computerScore = 0;
+
+        //We lopen 5 keer door het programma
+
+        for (i = 0; i < 5; i++) {
+
+            let playerSelection = prompt("Schaar, Steen of Papier. Wat is je wapen?");
+            let computerSelection = computerPlay();
+
+            console.log(computerSelection)
+
+            alert(playRound(playerSelection, computerSelection));
+
+            if (((playRound(playerSelection, computerSelection).search('wint')) >= 0)) {
+                humanScore = ++humanScore;
+            }
+
+            else if (((playRound(playerSelection, computerSelection).search('verliest')) >= 0)) {
+                computerScore = ++computerScore;
+            }
+
+            else {
+                humanScore = humanScore;
+                computerScore = computerScore;
+            }
+           
+            console.log(humanScore);
+            console.log(computerScore);
+    
+        }
+
+        if (humanScore === computerScore) {
+            alert('Jullie hadden beiden ' + humanScore + ' punt(en).\nHet is een gelijkspel');
+        }
+        else if (humanScore <= computerScore) {
+            alert('De computer heeft ' + computerScore + ' keer gewonnen.\nJij amper ' + humanScore + ' .\nZwak, je verliest terecht.');
+        }
+        else {
+            alert('Jij bent goed! Je had ' + humanScore + ' punten.\nDe computer amper ' + computerScore + ' punten.\nWat een loser die computer.\nJe wint terecht.');
+        }
 
 
+
+}
+
+game();
 
