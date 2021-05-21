@@ -72,7 +72,7 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(
     (button) => {
         button.addEventListener('click', function() {
-            const resultaat = document.createElement('div')
+            const resultaat = document.createElement('p')
             resultaat.textContent = playRound(this.id);
             rondeResultaat.prepend(resultaat);
 
