@@ -15,14 +15,11 @@ function computerPlay() {
     return mogelijkheden[Math.floor(Math.random()*mogelijkheden.length)];
 }
 
-/* Write a function that plays a single round of Rock Paper Scissors. 
-The function should take two parameters - 
-the playerSelection and computerSelection - 
-and then return a string that declares the winner of the round
-zorg dat case insensiteve ingegeven kan worden */
+// een spelronde
+function playRound(playerSelection) {
+    //de computerselectie in de ronde geplakt, zodat er maar één parameter moet meegegeven worden
+    let computerSelection = computerPlay();
 
-
-function playRound(playerSelection, computerSelection) {
     // voorwaarde toegevoegd om te zien of er geen onzin meegegeven wordt
     if (!mogelijkheden.includes((playerSelection.trim()).toLowerCase())) {
         return('Stop met me onzin te voeden!!! Onzin kan ik niet uitstaan\nGestraft zul je worden\nJe verliest deze ronde!')
@@ -68,71 +65,19 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-/*
-function game () {
+const rondeResultaat = document.querySelector('#rondeResultaat');
 
-        alert('Een spel van schaar, steen, papier.');
-        alert('Je speelt vijf keer, wie de meeste rondjes wint is de kampioen');
-        alert('Maar geef geen onzin in. Dan verlies je de ronde');
-        alert('Laten we beginnen');
-
-        let humanScore = 0;
-        let computerScore = 0;
-
-        //We lopen 5 keer door het programma
-
-        for (i = 0; i < 5; i++) {
-
-            let playerSelection = prompt("Schaar, Steen of Papier. Wat is je wapen?");
-            let computerSelection = computerPlay();
-
-            console.log(computerSelection)
-
-            alert(playRound(playerSelection, computerSelection));
-
-            if (((playRound(playerSelection, computerSelection).search('wint')) >= 0)) {
-                humanScore = ++humanScore;
-            }
-
-            else if (((playRound(playerSelection, computerSelection).search('verliest')) >= 0)) {
-                computerScore = ++computerScore;
-            }
-
-            else {
-                humanScore = humanScore;
-                computerScore = computerScore;
-            }
-           
-            console.log(humanScore);
-            console.log(computerScore);
-    
-        }
-
-        if (humanScore === computerScore) {
-            alert('Jullie hadden beiden ' + humanScore + ' punt(en).\nHet is een gelijkspel');
-        }
-        else if (humanScore <= computerScore) {
-            alert('De computer heeft ' + computerScore + ' keer gewonnen.\nJij amper ' + humanScore + ' .\nZwak, je verliest terecht.');
-        }
-        else {
-            alert('Jij bent goed! Je had ' + humanScore + ' punten.\nDe computer amper ' + computerScore + ' punten.\nWat een loser die computer.\nJe wint terecht.');
-        }
-
-
-
-}
-
-game();
-
-*/
-
-// een eventlistener voor een druk op de knop
-
+// we gaan voor elke button luisteren, en een eventlistener opzetten. Per click krijgen we een ronde die gespeel dwordt in de console waar we de ID van de button als variabele meeegeven.
 const buttons = document.querySelectorAll('button');
 buttons.forEach(
     (button) => {
-        button.addEventListener('click', () => {
-            alert(button.id);
+        button.addEventListener('click', function() {
+            const resultaat = document.createElement('div')
+            resultaat.textContent = playRound(this.id);
+            rondeResultaat.prepend(resultaat);
+
         })
     }
 )
+
+
