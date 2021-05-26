@@ -15,60 +15,45 @@ function computerPlay() {
     return mogelijkheden[Math.floor(Math.random()*mogelijkheden.length)];
 }
 
+// beginscore
+
+let humanScore = 0;
+let computerScore = 0;
+
 // een spelronde
 function playRound(playerSelection) {
     //de computerselectie in de ronde geplakt, zodat er maar één parameter moet meegegeven worden
     let computerSelection = computerPlay();
-
+  
     // voorwaarde toegevoegd om te zien of er geen onzin meegegeven wordt
     if (!mogelijkheden.includes((playerSelection.trim()).toLowerCase())) {
-        return('Stop met me onzin te voeden!!! Onzin kan ik niet uitstaan\nGestraft zul je worden\nJe verliest deze ronde!')
+        return(playerSelection + ' is onzin. Stop met me onzin te voeden!!! Als straf verlies je deze ronde.');
     }
     // als ze gelijk zijn is het een gelijkspel
     else if ((playerSelection.trim()).toLowerCase() === computerSelection) {
         return('De computer koos ook ' + (playerSelection.trim()).toLowerCase() + '.\nHet is een gelijkspel!');
     }
     // anders is het geen gelijkspel ;-)
-    // wat als de speler schaar koos
-    else if ((playerSelection.trim()).toLowerCase() === 'schaar') {
-        // de computer wint als hij steen koos
-        if (computerSelection === 'steen') {
-            return('De computer koos ' + computerSelection + '.\nHij slaagt met genoegen en met de steen je schaar kapot.\nJe verliest deze ronde!');
+    // wat als de speler wint
+    else if (
+        ((playerSelection.trim()).toLowerCase() === 'schaar' && computerSelection === 'papier') ||
+        ((playerSelection.trim()).toLowerCase() === 'steen' && computerSelection === 'schaar') ||
+        ((playerSelection.trim()).toLowerCase() === 'papier' && computerSelection === 'steen')
+        ) {
+            return('De computer koos ' + computerSelection + '.\nJe wint deze ronde.');
         }
-        // de computer verliest als hij papier koos
-        else {
-            return('De computer koos ' + computerSelection + '.\nMet je schaar knip je zijn belachelijk papiertje door.\nJe wint deze ronde!');
-        }
-    }
-    // wat als de speler steen koos
-    else if ((playerSelection.trim()).toLowerCase() === 'steen') {
-        // de computer wint als hij papier koos
-        if (computerSelection === 'papier') {
-            return('De computer koos ' + computerSelection + '.\nHij wikkelt je belachelijk steentje in zijn papier.\nJe verliest deze ronde!');
-        }
-        // de computer verliest als schaar koos
-        else {
-            return('De computer koos ' + computerSelection + '.\nJe gooit je rotsblok op zijn nagelschaartje.\nJe wint deze ronde!');
-        }
-    }
-    // anders heeft de speler papier gekozen
+    // wat als de speler verliest
     else {
-        // de computer wint als hij schaar koos
-        if (computerSelection === 'schaar') {
-            return('De computer koos ' + computerSelection + '.\nJe papiertje wordt versnipperd door de gouden schaar van de computer.\nJe verliest deze ronde!');
-        }
-        // de computer verliest als steen koos
-        else {
-            return('De computer koos ' + computerSelection + '.\nJe maakt een mooi geschenk van zijn steen door het in je cadeaupapier te verpakken.\nJe wint deze ronde!');
-        }
+        return('De computer koos ' + computerSelection + '.\nJe verliest deze ronde.');
     }
 }
+
 
 
 const rondeResultaat = document.querySelector('#rondeResultaat');
 
 // we gaan voor elke button luisteren, en een eventlistener opzetten. Per click krijgen we een ronde die gespeel dwordt in de console waar we de ID van de button als variabele meeegeven.
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.goedeInput');
 buttons.forEach(
     (button) => {
         button.addEventListener('click', function() {
@@ -80,4 +65,27 @@ buttons.forEach(
     }
 )
 
+// om onbzin mee te kunnen geven
+const onzinButton = document.querySelector('#onzin');
+onzinButton.addEventListener('click', getInputValue);
 
+function getInputValue() {
+    // Selecting the input element and get its value 
+    let inputVal = document.getElementsByClassName('slechteInput');
+    // speel een ronde, kan zelfs als je meerdere elementen hebt
+    for (i = 0; i < inputVal.length; i++) {
+        const resultaat = document.createElement('p')
+        resultaat.textContent = playRound(inputVal[0].value);
+        rondeResultaat.prepend(resultaat);
+    }
+
+}
+
+// reset de waarde
+const reset = document.querySelector('#reset');
+reset.addEventListener('click', function() {
+    let div = document.getElementById('rondeResultaat');
+    while(div.firstChild){
+    div.removeChild(div.firstChild);
+    }
+});
