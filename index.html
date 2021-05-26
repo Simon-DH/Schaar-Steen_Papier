@@ -3,24 +3,55 @@
 <head>
   <title>Schaar Steen Papier</title>
   <meta charset="UTF-8"/>
-  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href="bulma.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
   <main>
-    <div class="game">
-      <button id="schaar" class="goedeInput">Schaar</button>
-      <button id="steen" class="goedeInput">Steen</button>
-      <button id="papier" class="goedeInput">Papier</button>
+
+
+    <h1 class="has-text-centered is-size-5 mx-2 my-2">Een spel van spanning, kunde en grote vaardigheden.<br>Of een beetje geluk, dat kan ook.</h1>
+
+    <div class="columns mx-4 my-4">
+      <div class="column is-half has-text-centered is-size-3">
+        Speler <div class="playerscore">0</div>
+      </div>
+      <div class="column is-half has-text-centered is-size-3">
+        Computer  <div class="computerscore">0</div>
+      </div>
+    </div>
+      <div class="has-text-centered">
+        <button id="reset" class="button is-danger is-small">Reset</button>
+      </div>
+
+
+
+    <hr>
+
+    <div class="columns">
+      <div class="column has-text-centered">
+        <button id="schaar" class="goedeInput button is-primary is-large">Schaar</button>
+      </div>
+      <div class="column has-text-centered">
+        <button id="steen" class="goedeInput button is-primary is-large">Steen</button>
+      </div>
+      <div class="column has-text-centered">
+        <button id="papier" class="goedeInput button is-primary is-large">Papier</button>
+      </div>
     </div>
 
-    <input type=”text” class="slechteInput" value=""> 
-    
-    <button id="onzin">Geef al dan niet onzin mee</button>
+    <div class="columns  mx-4 my-4">
+      <div class="column is-four-fifths">
+        <input type=”text” class="slechteInput input is-small is-warning is-rounded" value="" placeholder="Typ hier je onzin in">
+      </div>
+      <div class="column has-text-centered">
+        <button id="onzin" class="button is-small is-warning">Durf je zelf iets getypt mee te geven?</button>
+      </div>
+    </div>
 
-    <button id="reset">Reset</button>
+    <hr>
 
-    <div id="rondeResultaat"></div>
+    <div id="rondeResultaat" class="has-text-centered is-size-5"></div>
 
   </main>
 
